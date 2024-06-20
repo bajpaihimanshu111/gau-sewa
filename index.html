@@ -6,11 +6,14 @@
   <title>Geolocation Example</title>
 </head>
 <body>
-  <h1>Get Current Location</h1>
-  <button onclick="getLocation()">Get Location</button>
+  <h1>Get Current Location on Page Load</h1>
   <p id="location"></p>
   
   <script>
+    window.onload = function() {
+      getLocation();
+    };
+
     function getLocation() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition, showError);
