@@ -3,11 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Geolocation Example</title>
+  <title>Gau Sewa</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 90%;
+      max-width: 900px;
+    }
+
+    h1 {
+      color: #4CAF50;
+    }
+
+    p {
+      font-size: 1.2em;
+    }
+
+    .location-info {
+      margin-top: 20px;
+      font-size: 1.1em;
+    }
+
+    .error {
+      color: red;
+    }
+
+    .animal-images {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    .animal-images img {
+      width: 280px; /* increased width */
+      height: auto; /* ensure aspect ratio is maintained */
+      border-radius: 10px;
+      margin: 0 10px; /* added margin */
+    }
+
+    .animal-images img:hover {
+      transform: scale(1.1);
+      transition: transform 0.3s;
+    }
+  </style>
 </head>
 <body>
-  <h1>Get Current Location on Page Load</h1>
-  <p id="location"></p>
+  <div class="container">
+    <h1>Gau Mata Sewa</h1>
+    <p>We care about our animals. Here's your current location to help nearby animals in need:</p>
+    <div id="location" class="location-info"></div>
+    <div class="animal-images">
+      <img src="https://images.donatekart.com/campaign/cover/Help-Dhyan-Cows.jpg" alt="Cow in need">
+      <img src="https://www.doghomefoundation.com/wp-content/uploads/2023/06/0J0A6080-min-scaled.jpg" alt="Dog in need">
+      <img src="https://d1vdjc70h9nzd9.cloudfront.net/media/campaign/496000/496248/image/62f8c173293f6.jpg" alt="Monkey in need">
+    </div>
+    <div class="help-text">
+      <p>Our Gau Mata (cow) is a sacred symbol in our culture and is in need of your help. Your support can make a difference in their lives. Together, let's ensure the well-being of our beloved animals.</p>
+      <p>Whether it's providing shelter, food, or medical assistance, every small act of kindness counts. Join us in our mission to protect and care for our Gau Mata.</p>
+    </div>
+  </div>
   
   <script>
     window.onload = function() {
@@ -32,20 +102,22 @@
     }
 
     function showError(error) {
+      let errorMessage = '';
       switch(error.code) {
         case error.PERMISSION_DENIED:
-          document.getElementById("location").innerHTML = "User denied the request for Geolocation."
+          errorMessage = "User denied the request for Geolocation.";
           break;
         case error.POSITION_UNAVAILABLE:
-          document.getElementById("location").innerHTML = "Location information is unavailable."
+          errorMessage = "Location information is unavailable.";
           break;
         case error.TIMEOUT:
-          document.getElementById("location").innerHTML = "The request to get user location timed out."
+          errorMessage = "The request to get user location timed out.";
           break;
         case error.UNKNOWN_ERROR:
-          document.getElementById("location").innerHTML = "An unknown error occurred."
+          errorMessage = "An unknown error occurred.";
           break;
       }
+      document.getElementById("location").innerHTML = `<span class="error">${errorMessage}</span>`;
     }
 
     function getAddressFromCoordinates(latitude, longitude) {
